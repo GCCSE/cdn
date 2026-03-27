@@ -32,7 +32,9 @@ class ExternalUploadsController < ApplicationController
 
   private
 
-  def set_cors_headers = response.set_header("Access-Control-Allow-Origin", "*")
+  def set_cors_headers
+    response.set_header("Access-Control-Allow-Origin", "*")
+  end
 
   def render_not_found_response(url)
     if url.match?(/\.(png|jpe?g)$/i)
@@ -57,7 +59,7 @@ class ExternalUploadsController < ApplicationController
           This file hasn't been uploaded or rescued yet.
         </text>
         <text x="400" y="280" font-family="Phantom Sans, system-ui, -apple-system, sans-serif" font-size="14" fill="#3C4858" text-anchor="middle">
-          Try uploading it at cdn.hackclub.com
+          Try uploading it at cdn.gccse.tech
         </text>
       </svg>
     SVG

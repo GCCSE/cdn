@@ -26,14 +26,14 @@ Upload a file via multipart form data. This is best for smaller files or non-Ver
 curl -X POST \
   -H "Authorization: Bearer sk_cdn_your_key_here" \
   -F "file=@photo.jpg" \
-  https://cdn.hackclub.com/api/v4/upload
+  https://cdn.gccse.tech/api/v4/upload
 ```
 
 ```javascript
 const formData = new FormData();
 formData.append('file', fileInput.files[0]);
 
-const response = await fetch('https://cdn.hackclub.com/api/v4/upload', {
+const response = await fetch('https://cdn.gccse.tech/api/v4/upload', {
   method: 'POST',
   headers: { 'Authorization': 'Bearer sk_cdn_your_key_here' },
   body: formData
@@ -50,7 +50,7 @@ const { url } = await response.json();
   "filename": "photo.jpg",
   "size": 12345,
   "content_type": "image/jpeg",
-  "url": "https://cdn.hackclub.com/01234567-89ab-cdef-0123-456789abcdef/photo.jpg",
+  "url": "https://cdn.gccse.tech/01234567-89ab-cdef-0123-456789abcdef/photo.jpg",
   "created_at": "2026-01-29T12:00:00Z"
 }
 ```
@@ -64,7 +64,7 @@ curl -X POST \
   -H "Authorization: Bearer sk_cdn_your_key_here" \
   -H "Content-Type: application/json" \
   -d '{"filename":"video.mp4","byte_size":2147483648,"content_type":"video/mp4"}' \
-  https://cdn.hackclub.com/api/v4/direct_upload
+  https://cdn.gccse.tech/api/v4/direct_upload
 ```
 
 **Response:**
@@ -89,7 +89,7 @@ curl -X POST \
   -H "Authorization: Bearer sk_cdn_your_key_here" \
   -H "Content-Type: application/json" \
   -d '{"finalize_token":"signed-token"}' \
-  https://cdn.hackclub.com/api/v4/complete_upload
+  https://cdn.gccse.tech/api/v4/complete_upload
 ```
 
 ## POST /api/v4/upload\_from\_url
@@ -103,7 +103,7 @@ curl -X POST \
   -H "Authorization: Bearer sk_cdn_your_key_here" \
   -H "Content-Type: application/json" \
   -d '{"url":"https://example.com/image.jpg"}' \
-  https://cdn.hackclub.com/api/v4/upload_from_url
+  https://cdn.gccse.tech/api/v4/upload_from_url
 
 # With authentication for the source URL:
 curl -X POST \
@@ -111,11 +111,11 @@ curl -X POST \
   -H "X-Download-Authorization: Bearer source_token_here" \
   -H "Content-Type: application/json" \
   -d '{"url":"https://protected.example.com/image.jpg"}' \
-  https://cdn.hackclub.com/api/v4/upload_from_url
+  https://cdn.gccse.tech/api/v4/upload_from_url
 ```
 
 ```javascript
-const response = await fetch('https://cdn.hackclub.com/api/v4/upload_from_url', {
+const response = await fetch('https://cdn.gccse.tech/api/v4/upload_from_url', {
   method: 'POST',
   headers: {
     'Authorization': 'Bearer sk_cdn_your_key_here',
@@ -135,7 +135,7 @@ Get the authenticated user and quota information.
 
 ```bash
 curl -H "Authorization: Bearer sk_cdn_your_key_here" \
-  https://cdn.hackclub.com/api/v4/me
+  https://cdn.gccse.tech/api/v4/me
 ```
 
 ```json

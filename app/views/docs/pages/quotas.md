@@ -34,7 +34,7 @@ Your homepage shows available storage with a progress bar. You'll see warnings w
 
 ```bash
 curl -H "Authorization: Bearer YOUR_API_KEY" \
-  https://cdn.hackclub.com/api/v4/me
+  https://cdn.gccse.tech/api/v4/me
 ```
 
 ```json

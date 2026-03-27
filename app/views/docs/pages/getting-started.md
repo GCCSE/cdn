@@ -22,13 +22,13 @@ Click **Sign in with Hack Club** on the homepage to authenticate.
 ## Use in HTML
 
 ```html
-<img src="https://cdn.hackclub.com/019505e2-c85b-7f80-9c31-4b2e5a8d9f12/photo.jpg" alt="My image">
+<img src="https://cdn.gccse.tech/019505e2-c85b-7f80-9c31-4b2e5a8d9f12/photo.jpg" alt="My image">
 ```
 
 ## Use in Markdown
 
 ```markdown
-![](https://cdn.hackclub.com/019505e2-c85b-7f80-9c31-4b2e5a8d9f12/photo.jpg)
+![](https://cdn.gccse.tech/019505e2-c85b-7f80-9c31-4b2e5a8d9f12/photo.jpg)
 ```
 
 ## Hotlinking

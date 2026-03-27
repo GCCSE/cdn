@@ -75,9 +75,9 @@ class Upload < ApplicationRecord
   # Get CDN URL (uses external uploads controller)
   def cdn_url
     Rails.application.routes.url_helpers.external_upload_url(
-      id:,
-      filename:,
-      host: ENV["CDN_HOST"] || "cdn.hackclub.com"
+      id: id,
+      filename: filename,
+      host: ENV["CDN_HOST"] || "cdn.gccse.tech"
     )
   end
 

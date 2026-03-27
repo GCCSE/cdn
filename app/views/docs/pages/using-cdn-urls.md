@@ -9,7 +9,7 @@ order: 2
 ## URL Structure
 
 ```
-https://cdn.hackclub.com/{id}/{filename}
+https://cdn.gccse.tech/{id}/{filename}
 ```
 
 Requests are 301 redirected to the underlying storage bucket.
@@ -19,19 +19,19 @@ Requests are 301 redirected to the underlying storage bucket.
 ### Images
 
 ```html
-<img src="https://cdn.hackclub.com/019505e2-c85b-7f80-9c31-4b2e5a8d9f12/photo.jpg" alt="">
+<img src="https://cdn.gccse.tech/019505e2-c85b-7f80-9c31-4b2e5a8d9f12/photo.jpg" alt="">
 ```
 
 ### Links
 
 ```html
-<a href="https://cdn.hackclub.com/019505e2-d4a1-7c20-8b45-6e3f2a1c8d09/document.pdf">Download</a>
+<a href="https://cdn.gccse.tech/019505e2-d4a1-7c20-8b45-6e3f2a1c8d09/document.pdf">Download</a>
 ```
 
 ### Markdown
 
 ```markdown
-![](https://cdn.hackclub.com/019505e2-e7f3-7d40-a156-9c4e8b2d1f03/screenshot.png)
+![](https://cdn.gccse.tech/019505e2-e7f3-7d40-a156-9c4e8b2d1f03/screenshot.png)
 ```
 
 ## Security

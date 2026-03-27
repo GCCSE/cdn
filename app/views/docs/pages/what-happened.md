@@ -39,7 +39,7 @@ if it's not on a domain you own, you're at the mercy of your storage provider fa
 
 i think we failed the community here, and i'm sorry.
 i've recovered as many files as i can by scraping the originals from slack, and those are available at
-`https://cdn.hackclub.com/rescue?url=<vercel/hel1 URL>`. this is a stable URL and should work forever.
+`https://cdn.gccse.tech/rescue?url=<vercel/hel1 URL>`. this is a stable URL and should work forever.
 
 here are stats on the recovery, keeping in mind that these are only the files we know about:
 
@@ -52,7 +52,7 @@ here are stats on the recovery, keeping in mind that these are only the files we
 (h/t @msw for the [original pass](https://github.com/maxwofford/cdn-bucketer) at the scraper script!)
 ## why should i trust that this one will last?
 very fair question given we've lost 2 CDNs and counting so far...
-this time is different because it's on a domain Hack Club owns - even if Cloudflare R2 disappears one day, we can restore a backup and redirect the `https://cdn.hackclub.com/<id>` URLs somewhere else without you changing everywhere they're linked from. and, at least as long as i'm here......we're gonna pay the bill this time.
+this time is different because it's on a domain we control - even if Cloudflare R2 disappears one day, we can restore a backup and redirect the `https://cdn.gccse.tech/<id>` URLs somewhere else without you changing everywhere they're linked from.
 
 CDN V4 is not fantastic code.
 it's written to be thrown out and replaced with something better in a few years.

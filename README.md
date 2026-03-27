@@ -1,6 +1,6 @@
 <div align="center">
   <img src="./new-assets/BlackGCCSE-Logo.png" width="140" alt="logo">
-  <h1>cdn.hackclub.com</h1>
+  <h1>cdn.gccse.tech</h1>
 </div>
 
 <p align="center"><i>Direct-to-storage uploads for large files, static assets, and durable URLs.</i></p>
@@ -83,7 +83,7 @@ See `.env.example` for the full list. Key variables:
 
 | Domain | Points to |
 |--------|-----------|
-| `cdn.hackclub.com` | Your app or proxy layer |
+| `cdn.gccse.tech` | Your app or proxy layer |
 | `cdn.hackclub-assets.com` | R2 bucket (custom domain in R2 settings) |
 
 ## API
@@ -92,14 +92,14 @@ The API uses bearer token authentication. Create an API key from the web dashboa
 
 **Upload a file:**
 ```bash
-curl -X POST https://cdn.hackclub.com/api/v4/upload \
+curl -X POST https://cdn.gccse.tech/api/v4/upload \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -F "file=@image.png"
 ```
 
 **Upload from URL:**
 ```bash
-curl -X POST https://cdn.hackclub.com/api/v4/upload_from_url \
+curl -X POST https://cdn.gccse.tech/api/v4/upload_from_url \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{"url": "https://example.com/image.png"}'
@@ -107,7 +107,7 @@ curl -X POST https://cdn.hackclub.com/api/v4/upload_from_url \
 
 **Direct upload for large files / Vercel-fronted deployments:**
 ```bash
-curl -X POST https://cdn.hackclub.com/api/v4/direct_upload \
+curl -X POST https://cdn.gccse.tech/api/v4/direct_upload \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{"filename":"video.mp4","byte_size":2147483648,"content_type":"video/mp4"}'

@@ -48,7 +48,7 @@ class FlavorTextService
       "Operating at a loss since 2025!",
       "Does anyone actually read this?",
       "Like and subscribe!",
-      "As seen on cdn.hackclub.com",
+      "As seen on cdn.gccse.tech",
       "As seen on hackclub.com",
       "Now running in production!",
       "put files in computer",
