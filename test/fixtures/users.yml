@@ -1,11 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+  github_uid: github_1
   email: one@gccse.tech
   name: User One
   is_admin: false
 
 two:
+  github_uid: github_2
   email: two@gccse.tech
   name: User Two
   is_admin: false

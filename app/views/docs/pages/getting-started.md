@@ -10,7 +10,7 @@ GCCSE CDN is image hosting for your HTML pages. Upload files, get permanent URLs
 
 ## Sign In
 
-Click **Start Session** on the homepage to get into the dashboard.
+Click **Sign in with GitHub** on the homepage to authenticate and get into the dashboard.
 
 ## Upload an Image
 

@@ -27,6 +27,8 @@ Prepare these first:
 
 You will also need values for:
 
+- `GITHUB_CLIENT_ID`
+- `GITHUB_CLIENT_SECRET`
 - `R2_ACCESS_KEY_ID`
 - `R2_SECRET_ACCESS_KEY`
 - `R2_BUCKET_NAME`
@@ -131,6 +133,26 @@ Before creating the Vercel project, make sure your repo includes:
 
 Then push to GitHub.
 
+## 7.5. Create the GitHub OAuth App
+
+In GitHub:
+
+1. Open `Settings`
+2. Open `Developer settings`
+3. Open `OAuth Apps`
+4. Create a new OAuth App
+
+Use:
+
+- Application name: `GCCSE CDN`
+- Homepage URL: `https://cdn.gccse.tech`
+- Authorization callback URL: `https://cdn.gccse.tech/auth/github/callback`
+
+After creation, copy:
+
+- client ID
+- client secret
+
 ## 8. Create the Vercel Project
 
 In Vercel:
@@ -173,6 +195,8 @@ Required:
 
 - `RAILS_ENV=production`
 - `RACK_ENV=production`
+- `GITHUB_CLIENT_ID=...`
+- `GITHUB_CLIENT_SECRET=...`
 - `DATABASE_URL=...`
 - `R2_ACCESS_KEY_ID=...`
 - `R2_SECRET_ACCESS_KEY=...`

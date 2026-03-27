@@ -11,7 +11,7 @@
 
 ---
 
-A Rails 8 application for hosting and managing CDN uploads for GCCSE.
+A Rails 8 application for hosting and managing CDN uploads for GCCSE with GitHub sign-in.
 
 ## Prerequisites
 
@@ -74,6 +74,8 @@ See `.env.example` for the full list. Key variables:
 | `R2_ENDPOINT` | R2 endpoint URL |
 | `CDN_HOST` | Public hostname for CDN URLs |
 | `CDN_ASSETS_HOST` | Public R2 bucket hostname |
+| `GITHUB_CLIENT_ID` | GitHub OAuth app client ID |
+| `GITHUB_CLIENT_SECRET` | GitHub OAuth app client secret |
 | `LOCKBOX_MASTER_KEY` | 64-char hex key for encrypting API keys |
 | `BLIND_INDEX_MASTER_KEY` | 64-char hex key for searchable encryption |
 
@@ -112,6 +114,15 @@ curl -X POST https://cdn.gccse.tech/api/v4/direct_upload \
 ```
 
 See `/docs` in the running app for full API documentation.
+
+## GitHub Login
+
+Create a GitHub OAuth App with:
+
+- Homepage URL: `https://cdn.gccse.tech`
+- Authorization callback URL: `https://cdn.gccse.tech/auth/github/callback`
+
+The app requests only `read:user,user:email` and does not need repository scopes.
 
 ## Vercel
 

@@ -35,7 +35,7 @@ class Components::StaticPages::LoggedOut < Components::StaticPages::Base
       end
 
       div(style: "display: flex; gap: 8px; flex-wrap: wrap;") do
-        button_to "Start Session", helpers.sign_in_path, method: :post, class: "btn btn-primary", data: { turbo: false }
+        button_to "Sign in with GitHub", helpers.github_auth_path, method: :post, class: "btn btn-primary", data: { turbo: false }
       end
     end
   end

@@ -15,17 +15,33 @@ class User < ApplicationRecord
 
   scope :admins, -> { where(is_admin: true) }
 
+  validates :github_uid, uniqueness: true, allow_nil: true
   validates :quota_policy, inclusion: { in: Quota::ADMIN_ASSIGNABLE.map(&:to_s) }, allow_nil: true
 
   has_many :uploads, dependent: :destroy
   has_many :api_keys, dependent: :destroy, class_name: "APIKey"
 
-  def self.create_guest!
-    create!(
-      email: "user-#{SecureRandom.hex(6)}@gccse.tech",
-      name: "GCCSE User #{SecureRandom.hex(3).upcase}",
-      quota_policy: "verified"
-    )
+  def self.find_or_create_from_github(auth)
+    github_uid = auth&.uid
+    raise "Missing GitHub user ID from authentication" if github_uid.blank?
+
+    user = find_by(github_uid: github_uid)
+
+    email = auth.info.email.presence || auth.extra&.raw_info&.email.presence
+    nickname = auth.info.nickname.presence || "github-user"
+    attrs = {
+      github_uid: github_uid,
+      email: email.presence || "#{nickname}@users.noreply.github.com",
+      name: auth.info.name.presence || nickname,
+      quota_policy: user&.quota_policy || "verified"
+    }
+
+    if user
+      user.update!(attrs)
+      user
+    else
+      create!(attrs)
+    end
   end
 
   def total_files
