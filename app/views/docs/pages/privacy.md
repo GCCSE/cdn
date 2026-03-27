@@ -6,11 +6,11 @@ order: 5
 
 # Privacy Policy
 
-This service is operated by Hack Club. For complete details on how Hack Club handles your data, please see the [Hack Club Privacy Policy](https://hackclub.com/privacy/).
+This service is operated by GCCSE.
 
 ## What CDN Collects
 
-In addition to the standard Hack Club privacy practices, this CDN service stores:
+This CDN service stores:
 
 - **Uploaded files**: Content you upload, along with original filenames and file metadata
 - **Upload history**: Timestamps and file sizes for quota tracking

@@ -68,7 +68,7 @@ class Upload < ApplicationRecord
 
   # Direct URL to public R2 bucket
   def assets_url
-    host = ENV.fetch("CDN_ASSETS_HOST", "cdn.hackclub-assets.com")
+    host = ENV.fetch("CDN_ASSETS_HOST", "assets.gccse.tech")
     "https://#{host}/#{blob.key}"
   end
 

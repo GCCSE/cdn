@@ -41,8 +41,8 @@ class Components::StaticPages::Base < Components::Base
   def resources_panel
     links = [
       { label: "Documentation", href: doc_path("getting-started"), icon: :book },
-      { label: "GitHub Repo", href: "https://github.com/hackclub/cdn", icon: :"mark-github" },
-      { label: "Report an Issue", href: "https://github.com/hackclub/cdn/issues", icon: :"issue-opened" }
+      { label: "GitHub Repo", href: "https://github.com/dev-ananta/cdn", icon: :"mark-github" },
+      { label: "Report an Issue", href: "https://github.com/dev-ananta/cdn/issues", icon: :"issue-opened" }
     ]
     link_panel("Resources", links)
   end

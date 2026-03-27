@@ -10,9 +10,9 @@
 
 if Rails.env.development?
   user = User.first || User.create!(
-    hca_id: 'dev_user',
-    email: 'dev@example.com',
-    name: 'Dev User'
+    email: 'dev@gccse.tech',
+    name: 'Dev User',
+    quota_policy: 'verified'
   )
 
   provenances = [ :web, :api, :rescued ]
@@ -29,14 +29,14 @@ if Rails.env.development?
     )
 
     # Create upload record
-    provenance = provenances.sample
-    Upload.create!(
-      user: user,
-      blob: blob,
-      provenance: provenance,
-      original_url: provenance == :rescued ? "https://hel1.cdn.hackclub.com/old_file_#{i}.jpg" : nil,
-      created_at: rand(30.days.ago..Time.current)
-    )
+      provenance = provenances.sample
+      Upload.create!(
+        user: user,
+        blob: blob,
+        provenance: provenance,
+        original_url: provenance == :rescued ? "https://cdn.gccse.tech/legacy/old_file_#{i}.jpg" : nil,
+        created_at: rand(30.days.ago..Time.current)
+      )
   end
 
   puts "Created #{Upload.count} sample uploads for #{user.name}"

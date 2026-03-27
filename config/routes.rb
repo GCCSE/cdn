@@ -7,11 +7,8 @@ Rails.application.routes.draw do
   end
 
   delete "/logout", to: "sessions#destroy", as: :logout
-  get "/login", to: "static_pages#login", as: :login
+  post "/sign_in", to: "sessions#create", as: :sign_in
   root "static_pages#home", as: :root
-  post "/auth/hack_club", as: :hack_club_auth
-  get "/auth/hack_club/callback", to: "sessions#create"
-  get "/auth/failure", to: "sessions#failure"
 
   resources :uploads, only: [ :index, :create, :destroy ]
   post "/uploads/direct", to: "uploads#direct_upload", as: :direct_uploads

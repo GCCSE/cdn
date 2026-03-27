@@ -255,8 +255,6 @@ GEM
       logger
       rack (>= 2.2.3)
       rack-protection
-    omniauth-hack_club (1.0.1)
-      omniauth-oauth2 (~> 1.8)
     omniauth-oauth2 (1.9.0)
       oauth2 (>= 2.0.2, < 3)
       omniauth (~> 2.0)
@@ -505,8 +503,6 @@ DEPENDENCIES
   jb
   kaminari
   lockbox
-  omniauth
-  omniauth-hack_club
   pg (~> 1.3)
   pg_search
   phlex-rails

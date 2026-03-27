@@ -1,15 +1,11 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  hca_id: MyString
-  hca_access_token: MyString
-  email: MyString
-  name: MyString
+  email: one@gccse.tech
+  name: User One
   is_admin: false
 
 two:
-  hca_id: MyString
-  hca_access_token: MyString
-  email: MyString
-  name: MyString
+  email: two@gccse.tech
+  name: User Two
   is_admin: false

@@ -6,11 +6,11 @@ order: 1
 
 # Getting Started
 
-Hack Club CDN is image hosting for your HTML pages. Upload files, get permanent URLs, embed them anywhere.
+GCCSE CDN is image hosting for your HTML pages. Upload files, get permanent URLs, embed them anywhere.
 
 ## Sign In
 
-Click **Sign in with Hack Club** on the homepage to authenticate.
+Click **Start Session** on the homepage to get into the dashboard.
 
 ## Upload an Image
 
@@ -41,4 +41,4 @@ Need to upload from code? See the [API documentation](/docs/api).
 
 ## Need Help?
 
-- [GitHub Issues](https://github.com/hackclub/cdn/issues)
+- [GitHub Issues](https://github.com/dev-ananta/cdn/issues)

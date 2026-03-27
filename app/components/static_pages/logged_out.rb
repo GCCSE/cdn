@@ -24,18 +24,18 @@ class Components::StaticPages::LoggedOut < Components::StaticPages::Base
         div(style: "display: flex; align-items: center; gap: 12px; margin: 0 0 8px;") do
           img(src: "/logo-black.png", alt: "CDN logo", class: "app-logo", style: "height: 44px; width: auto;")
           h1(style: "font-size: 2rem; font-weight: 300; margin: 0;") do
-            plain "Hack Club CDN"
+            plain "GCCSE CDN"
             sup(style: "font-size: 0.5em; margin-left: 4px;") { "v4" }
           end
         end
         p(style: "color: var(--fgColor-muted, #656d76); margin: 0 0 8px; max-width: 600px;") do
-          plain "File hosting with direct-to-storage uploads up to 2 GB."
+          plain "File hosting for GCCSE with direct-to-storage uploads up to 2 GB."
         end
         render(Primer::Beta::Label.new(scheme: :secondary)) { flavor_text }
       end
 
       div(style: "display: flex; gap: 8px; flex-wrap: wrap;") do
-        button_to "Sign in with Hack Club", "/auth/hack_club", method: :post, class: "btn btn-primary", data: { turbo: false }
+        button_to "Start Session", helpers.sign_in_path, method: :post, class: "btn btn-primary", data: { turbo: false }
       end
     end
   end
@@ -54,7 +54,7 @@ class Components::StaticPages::LoggedOut < Components::StaticPages::Base
       div(style: "display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px;") do
         feature_card(:lock, "Invincible", "Backups of the underlying storage exist.")
         feature_card(:link, "No broken links, this time?", "it lives on a domain! that we own!")
-        feature_card(:"shield-check", "Hopefully reliable", 'Backed by the award-winning "cc @nora" service guarantee.')
+        feature_card(:"shield-check", "Built for GCCSE", "Designed for reliable uploads and durable URLs.")
       end
     end
   end

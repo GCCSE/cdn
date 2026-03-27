@@ -4,7 +4,10 @@ class User < ApplicationRecord
   include PublicIdentifiable
   include PgSearch::Model
   set_public_id_prefix :usr
-  def to_param = public_id
+
+  def to_param
+    public_id
+  end
 
   pg_search_scope :search,
     against: [ :email, :name ],
@@ -12,36 +15,18 @@ class User < ApplicationRecord
 
   scope :admins, -> { where(is_admin: true) }
 
-  validates :hca_id, uniqueness: true, allow_nil: true
   validates :quota_policy, inclusion: { in: Quota::ADMIN_ASSIGNABLE.map(&:to_s) }, allow_nil: true
-  encrypts :hca_access_token
 
   has_many :uploads, dependent: :destroy
   has_many :api_keys, dependent: :destroy, class_name: "APIKey"
 
-  def self.find_or_create_from_omniauth(auth)
-    hca_id = auth.uid
-    raise "Missing HCA user ID from authentication" if hca_id.blank?
-
-    user = find_by(hca_id:)
-
-    attrs = {
-      hca_id:,
-      email: auth.info.email,
-      name: auth.info.name,
-      hca_access_token: auth.credentials.token
-    }
-
-    if user
-      user.update!(attrs)
-    else
-      user = create!(attrs)
-    end
-
-    user
+  def self.create_guest!
+    create!(
+      email: "user-#{SecureRandom.hex(6)}@gccse.tech",
+      name: "GCCSE User #{SecureRandom.hex(3).upcase}",
+      quota_policy: "verified"
+    )
   end
-
-  def hca_profile(access_token) = HCAService.new(access_token).me
 
   def total_files
     uploads.count

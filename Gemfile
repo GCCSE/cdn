@@ -58,8 +58,6 @@ gem "dotenv-rails", groups: [ :development, :test ]
 gem "hashid-rails"
 gem "vite_rails"
 gem "phlex-rails"
-gem "omniauth"
-gem "omniauth-hack_club"
 gem "faraday"
 gem "faraday-follow_redirects"
 gem "pundit"

@@ -104,7 +104,7 @@ class Components::Admin::Users::Show < Components::Base
             input(type: "hidden", name: "authenticity_token", value: helpers.form_authenticity_token)
 
             select(name: "user[quota_policy]", class: "form-select", style: "width: auto;") do
-              option(value: "", selected: @user.quota_policy.nil?) { "Auto-detect (via HCA)" }
+              option(value: "", selected: @user.quota_policy.nil?) { "Default tier" }
               Quota::ADMIN_ASSIGNABLE.each do |slug|
                 option(value: slug.to_s, selected: @user.quota_policy == slug.to_s) { slug.to_s.humanize }
               end

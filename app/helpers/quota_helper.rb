@@ -20,9 +20,7 @@ module QuotaHelper
         plain "You're using #{usage[:percentage_used]}% of your storage quota "
         plain "(#{number_to_human_size(usage[:storage_used])} of #{number_to_human_size(usage[:storage_limit])}). "
         if usage[:policy] == "unverified"
-          plain "Get verified at "
-          a(href: "https://auth.hackclub.com", target: "_blank", rel: "noopener") { "auth.hackclub.com" }
-          plain " to unlock 50GB of storage."
+          plain "Contact an administrator if you need a quota adjustment."
         end
       end
     end

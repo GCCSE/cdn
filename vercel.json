@@ -1,0 +1,4 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "installCommand": "bundle config set without 'development test' && bundle install && yarn install --frozen-lockfile"
+}

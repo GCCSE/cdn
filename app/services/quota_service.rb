@@ -7,26 +7,14 @@ class QuotaService
     @user = user
   end
 
-  # Returns the applicable Quota::Policy for the user
-  # Checks HCA if quota_policy is NULL, upgrades to verified if confirmed
   def current_policy
     if @user.quota_policy.present?
-      # User has explicit policy set - use it
       Quota.policy(@user.quota_policy.to_sym)
     else
-      # No policy set - check HCA verification
-      if hca_verified?
-        # User is verified - upgrade them permanently
-        @user.update_column(:quota_policy, "verified")
-        Quota.policy(:verified)
-      else
-        # Not verified - use unverified tier (don't set field)
-        Quota.policy(:unverified)
-      end
+      Quota.policy(:verified)
     end
   rescue KeyError
-    # Invalid policy slug - fall back to unverified
-    Quota.policy(:unverified)
+    Quota.policy(:verified)
   end
 
   # Returns hash with storage info, policy, and flags
@@ -78,34 +66,7 @@ class QuotaService
     ((@user.total_storage_bytes.to_f / max) * 100).round(2)
   end
 
-  # Check HCA and upgrade to verified if confirmed
-  # Returns true if verification successful, false otherwise
   def check_and_upgrade_verification!
-    return true if @user.quota_policy.present? # Already has policy set
-
-    if hca_verified?
-      @user.update_column(:quota_policy, "verified")
-      true
-    else
-      false
-    end
-  rescue Faraday::Error => e
-    Rails.logger.warn "HCA verification check failed for user #{@user.id}: #{e.message}"
-    false
-  end
-
-  private
-
-  # Check if user is verified via HCA
-  def hca_verified?
-    return false unless @user.hca_access_token.present?
-    return false unless @user.hca_id.present?
-
-    hca = HCAService.new(@user.hca_access_token)
-    response = hca.check_verification(idv_id: @user.hca_id)
-    response[:result] == "verified_eligible"
-  rescue Faraday::Error, ArgumentError => e
-    Rails.logger.warn "HCA API error for user #{@user.id}: #{e.message}"
-    false
+    true
   end
 end

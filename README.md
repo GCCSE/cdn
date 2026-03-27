@@ -11,11 +11,11 @@
 
 ---
 
-A Rails 8 application for hosting and managing CDN uploads, with OAuth authentication via Hack Club.
+A Rails 8 application for hosting and managing CDN uploads for GCCSE.
 
 ## Prerequisites
 
-- Ruby 3.4.4 (see `.ruby-version`)
+- Ruby 3.3.6 (see `.ruby-version`)
 - PostgreSQL
 - Node.js + Yarn (for Vite frontend)
 - A Cloudflare R2 bucket (or S3-compatible storage)
@@ -24,7 +24,7 @@ A Rails 8 application for hosting and managing CDN uploads, with OAuth authentic
 
 1. **Clone and install dependencies:**
    ```bash
-   git clone https://github.com/hackclub/cdn.git
+   git clone https://github.com/dev-ananta/cdn.git
    cd cdn
    bundle install
    yarn install
@@ -74,8 +74,6 @@ See `.env.example` for the full list. Key variables:
 | `R2_ENDPOINT` | R2 endpoint URL |
 | `CDN_HOST` | Public hostname for CDN URLs |
 | `CDN_ASSETS_HOST` | Public R2 bucket hostname |
-| `HACKCLUB_CLIENT_ID` | OAuth client ID from Hack Club Auth |
-| `HACKCLUB_CLIENT_SECRET` | OAuth client secret |
 | `LOCKBOX_MASTER_KEY` | 64-char hex key for encrypting API keys |
 | `BLIND_INDEX_MASTER_KEY` | 64-char hex key for searchable encryption |
 
@@ -84,7 +82,7 @@ See `.env.example` for the full list. Key variables:
 | Domain | Points to |
 |--------|-----------|
 | `cdn.gccse.tech` | Your app or proxy layer |
-| `cdn.hackclub-assets.com` | R2 bucket (custom domain in R2 settings) |
+| `assets.gccse.tech` | R2 bucket (custom domain in R2 settings) |
 
 ## API
 
@@ -132,5 +130,5 @@ Make sure your bucket CORS policy allows `PUT` and `OPTIONS` from your app origi
 
 <div align="center">
   <br>
-  <p>Made with 💜 for Hack Club</p>
+  <p>Made for GCCSE</p>
 </div>

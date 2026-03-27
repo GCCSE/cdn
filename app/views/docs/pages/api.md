@@ -72,7 +72,7 @@ curl -X POST \
 ```json
 {
   "upload_id": "01234567-89ab-cdef-0123-456789abcdef",
-  "upload_url": "https://cdn-hackclub-assets.example.com/...",
+  "upload_url": "https://assets.gccse.tech/...",
   "headers": {
     "Content-Type": "video/mp4"
   },
@@ -141,7 +141,7 @@ curl -H "Authorization: Bearer sk_cdn_your_key_here" \
 ```json
 {
   "id": "usr_abc123",
-  "email": "you@hackclub.com",
+  "email": "you@gccse.tech",
   "name": "Your Name",
   "storage_used": 1048576000,
   "storage_limit": 53687091200,
@@ -190,4 +190,4 @@ See [Storage Quotas](/docs/quotas) for details on getting more space.
 
 ## Help
 
-- [GitHub Issues](https://github.com/hackclub/cdn/issues)
+- [GitHub Issues](https://github.com/dev-ananta/cdn/issues)

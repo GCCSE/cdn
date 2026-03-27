@@ -9,7 +9,7 @@ class Components::HeaderBar < Components::Base
       div(style: "display: flex; align-items: center; gap: 1rem;") do
         a(href: root_path, class: "app-header-brand", style: "text-decoration: none; color: inherit;") do
           img(src: "/logo-black.png", alt: "CDN logo", class: "app-logo", style: "height: 24px; width: auto; vertical-align: middle; margin-right: 8px;")
-          plain "Hack Club CDN"
+          plain "GCCSE CDN"
           sup(class: "app-header-env-badge") { "(dev)" } if Rails.env.development?
         end
         nav(style: "display: flex; align-items: center; gap: 1rem; margin-left: 1rem;") do

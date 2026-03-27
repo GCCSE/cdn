@@ -43,7 +43,7 @@ namespace :storage do
 
           client.copy_object(
             bucket: bucket.name,
-            copy_source: "#{bucket.name}/hackclub-cdn/#{m[:old_key]}",
+            copy_source: "#{bucket.name}/gccse-cdn/#{m[:old_key]}",
             key: m[:new_key],
             content_type: blob.content_type || "application/octet-stream",
             content_disposition: "inline",

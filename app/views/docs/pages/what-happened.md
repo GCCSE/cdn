@@ -6,19 +6,19 @@ order: 99
 
 # what happened?
 
-## the first Hack Club CDN
+## the first GCCSE CDN
 
 in ~april 2020, Max & Lachlan built a CDN. a silly little thing...
-a more civilized weapon for an organization Hack Club is no longer shaped like at all...,,
+a more civilized weapon for an organization that has changed shape several times...
 
 it worked by creating a new [Vercel](https://vercel.app) deploy every time someone wanted to add a file.
 while i'm sure vercel loved this (~~their ToS says "don't do this"~~), at some point (maybe december of 2025ish?) all the `cloud-*-hack-club-bot.vercel.app` file URLs went down.
 deployment retention policies being what they are, the deployments are not retained.
 AIUI this is because we didn't pay the bill.
 
-Hack Club CDN V1/V2 deletum est.
+GCCSE CDN V1/V2 deletum est.
 
-## the second Hack Club CDN
+## the second GCCSE CDN
 
 recognizing that CDNing the prior way was kinda silly, in ~february of 2025 Tom (@Deployor) wrote a new CDN!
 this was backed by a Hetzner object storage bucket, which some might say is a better design decision...
@@ -26,7 +26,7 @@ this was backed by a Hetzner object storage bucket, which some might say is a be
 eventually the card tied to the Hetzner account got receipt-locked & all the resources and data in it got nuked.
 AIUI this is because we didn't pay the bill.
 
-Hack Club CDN V3 deletum est.
+GCCSE CDN V3 deletum est.
 
 ## but why is it _gone_?
 

@@ -6,7 +6,7 @@ order: 4
 
 # Storage Quotas
 
-CDN provides free storage for the Hack Club community. Your quota depends on whether you're verified.
+CDN provides storage for GCCSE. Standard accounts start on the verified tier.
 
 ## What's My Quota?
 
@@ -16,15 +16,7 @@ CDN provides free storage for the Hack Club community. Your quota depends on whe
 | **Verified** | 2 GB | 300 GB |
 | **"Unlimited"** | 2 GB | 2 TB |
 
-**New users start unverified.** Once you verify with Hack Club, you automatically get 300 GB.
-
-## Get 300 GB Free (Verified Tier)
-
-1. Visit [auth.hackclub.com](https://auth.hackclub.com) and submit your ID for verification
-2. Wait for HCA ops to approve your ID (usually takes a day or two)
-3. Once approved, sign in to CDN again to automatically unlock 300 GB
-
-Your quota upgrades automatically once HCA confirms your verification.
+**New users start verified.** Administrators can still assign a different tier when needed.
 
 ## Check Your Usage
 
