@@ -27,26 +27,54 @@ class UploadsController < ApplicationController
 
     # pre-gen upload ID for predictable storage path
     upload_id = SecureRandom.uuid_v7
-        sanitized_filename = ActiveStorage::Filename.new(uploaded_file.original_filename).sanitized
-        storage_key = "#{upload_id}/#{sanitized_filename}"
+    sanitized_filename = ActiveStorage::Filename.new(uploaded_file.original_filename).sanitized
+    storage_key = "#{upload_id}/#{sanitized_filename}"
 
-        blob = ActiveStorage::Blob.create_and_upload!(
-          io: uploaded_file.tempfile,
-          filename: uploaded_file.original_filename,
-          content_type: content_type,
-          key: storage_key
-        )
+    blob = ActiveStorage::Blob.create_and_upload!(
+      io: uploaded_file.tempfile,
+      filename: uploaded_file.original_filename,
+      content_type: content_type,
+      key: storage_key
+    )
 
-        @upload = current_user.uploads.create!(
-          id: upload_id,
-          blob: blob,
-          provenance: :web
-        )
+    @upload = current_user.uploads.create!(
+      id: upload_id,
+      blob: blob,
+      provenance: :web
+    )
 
     redirect_to uploads_path, notice: "File uploaded successfully!"
   rescue StandardError => e
     event = Sentry.capture_exception(e)
     redirect_to uploads_path, alert: "Upload failed: #{e.message} (Error ID: #{event&.event_id})"
+  end
+
+  def direct_upload
+    file = direct_upload_params
+    upload = DirectUploadService.new(current_user).prepare(
+      filename: file[:filename],
+      byte_size: file[:byte_size].to_i,
+      content_type: file[:content_type],
+      provenance: :web
+    )
+
+    render json: upload
+  rescue ActionController::ParameterMissing => e
+    render json: { error: e.message }, status: :bad_request
+  rescue DirectUploadService::Error => e
+    render json: { error: e.message }, status: :unprocessable_entity
+  end
+
+  def complete_direct_upload
+    upload = DirectUploadService.new(current_user).finalize(finalize_token: params.require(:finalize_token))
+
+    render json: { url: upload.cdn_url, message: "File uploaded successfully!" }, status: :created
+  rescue DirectUploadService::QuotaExceededError => e
+    render json: { error: e.message }, status: :payment_required
+  rescue ActionController::ParameterMissing => e
+    render json: { error: e.message }, status: :bad_request
+  rescue DirectUploadService::Error => e
+    render json: { error: e.message }, status: :unprocessable_entity
   end
 
   def destroy
@@ -84,5 +112,9 @@ class UploadsController < ApplicationController
 
   def set_upload
     @upload = Upload.find(params[:id])
+  end
+
+  def direct_upload_params
+    params.require(:file).permit(:filename, :byte_size, :content_type)
   end
 end

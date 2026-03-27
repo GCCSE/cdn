@@ -1,5 +1,0 @@
-section "#{flavor_message}", markdown: true
-
-section ":warning: `#{error_message}`\n```#{backtrace}```", markdown: true
-
-context [mrkdwn_text("sentry ID: `#{sentry_id}` • <https://cdn.hackclub.com|cdn.hackclub.com>")]

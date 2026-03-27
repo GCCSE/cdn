@@ -20,3 +20,13 @@
   background-color: var(--bgColor-default);
   border-bottom: 1px solid var(--borderColor-muted);
 }
+
+.app-logo {
+  display: inline-block;
+}
+
+@media (prefers-color-scheme: dark) {
+  .app-logo {
+    filter: brightness(0) invert(1);
+  }
+}

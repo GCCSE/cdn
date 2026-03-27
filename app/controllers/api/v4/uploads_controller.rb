@@ -64,6 +64,35 @@ module API
         render json: { error: "Upload failed: #{e.message}" }, status: :unprocessable_entity
       end
 
+      # POST /api/v4/direct_upload
+      def direct_upload
+        upload = DirectUploadService.new(current_user).prepare(
+          filename: params.require(:filename),
+          byte_size: params.require(:byte_size).to_i,
+          content_type: params[:content_type],
+          provenance: :api
+        )
+
+        render json: upload, status: :created
+      rescue DirectUploadService::QuotaExceededError => e
+        usage = QuotaService.new(current_user).current_usage
+        render json: quota_error_json(usage, e.message), status: :payment_required
+      rescue DirectUploadService::Error, ActionController::ParameterMissing => e
+        render json: { error: e.message }, status: :unprocessable_entity
+      end
+
+      # POST /api/v4/complete_upload
+      def complete_direct_upload
+        upload = DirectUploadService.new(current_user).finalize(finalize_token: params.require(:finalize_token))
+
+        render json: upload_json(upload), status: :created
+      rescue DirectUploadService::QuotaExceededError => e
+        usage = QuotaService.new(current_user).current_usage
+        render json: quota_error_json(usage, e.message), status: :payment_required
+      rescue DirectUploadService::Error, ActionController::ParameterMissing => e
+        render json: { error: e.message }, status: :unprocessable_entity
+      end
+
       private
 
       def check_quota

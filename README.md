@@ -1,17 +1,12 @@
 <div align="center">
-  <img src="https://assets.hackclub.com/flag-standalone.svg" width="100" alt="flag">
+  <img src="./new-assets/BlackGCCSE-Logo.png" width="140" alt="logo">
   <h1>cdn.hackclub.com</h1>
 </div>
 
-<p align="center"><i>Deep under the waves and storms there lies a <a href="https://app.slack.com/client/T0266FRGM/C016DEDUL87">vault</a>...</i></p>
+<p align="center"><i>Direct-to-storage uploads for large files, static assets, and durable URLs.</i></p>
 
 <div align="center">
-  <img src="https://files.catbox.moe/6fpj0x.png" width="100%" alt="Banner">
-  <p align="center">Banner illustration by <a href="https://gh.maxwofford.com">@maxwofford</a>.</p>
-
-  <a href="https://app.slack.com/client/T0266FRGM/C016DEDUL87">
-    <img alt="Slack Channel" src="https://img.shields.io/badge/slack-%23cdn-blue.svg?style=flat&logo=slack">
-  </a>
+  <img src="./new-assets/Placeholder.jpg" width="100%" alt="Placeholder banner">
 </div>
 
 ---
@@ -88,7 +83,7 @@ See `.env.example` for the full list. Key variables:
 
 | Domain | Points to |
 |--------|-----------|
-| `cdn.hackclub.com` | Rails app (Heroku/Fly/etc.) |
+| `cdn.hackclub.com` | Your app or proxy layer |
 | `cdn.hackclub-assets.com` | R2 bucket (custom domain in R2 settings) |
 
 ## API
@@ -110,7 +105,21 @@ curl -X POST https://cdn.hackclub.com/api/v4/upload_from_url \
   -d '{"url": "https://example.com/image.png"}'
 ```
 
+**Direct upload for large files / Vercel-fronted deployments:**
+```bash
+curl -X POST https://cdn.hackclub.com/api/v4/direct_upload \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"filename":"video.mp4","byte_size":2147483648,"content_type":"video/mp4"}'
+```
+
 See `/docs` in the running app for full API documentation.
+
+## Vercel
+
+Large uploads should use the direct-upload flow so the file goes straight from the client to R2 instead of through the app server. That keeps uploads working when requests pass through Vercel limits.
+
+Make sure your bucket CORS policy allows `PUT` and `OPTIONS` from your app origin, or browser-based direct uploads will be blocked before they reach storage.
 
 ## Architecture
 

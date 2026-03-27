@@ -16,7 +16,8 @@ Click **Sign in with Hack Club** on the homepage to authenticate.
 
 1. Go to **My Files**
 2. Drag and drop images or click **Upload**
-3. Copy the URL
+3. Upload files up to 2 GB each
+4. Copy the URL
 
 ## Use in HTML
 
@@ -40,5 +41,4 @@ Need to upload from code? See the [API documentation](/docs/api).
 
 ## Need Help?
 
-- [#cdn-dev on Slack](https://hackclub.slack.com/archives/C08RYDPS36V)
 - [GitHub Issues](https://github.com/hackclub/cdn/issues)

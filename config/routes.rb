@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   get "/auth/failure", to: "sessions#failure"
 
   resources :uploads, only: [ :index, :create, :destroy ]
+  post "/uploads/direct", to: "uploads#direct_upload", as: :direct_uploads
+  post "/uploads/complete", to: "uploads#complete_direct_upload", as: :complete_direct_uploads
 
   resources :api_keys, only: [ :index, :create, :destroy ]
 
@@ -21,6 +23,8 @@ Rails.application.routes.draw do
     namespace :v4 do
       get "me", to: "users#show"
       post "upload", to: "uploads#create"
+      post "direct_upload", to: "uploads#direct_upload"
+      post "complete_upload", to: "uploads#complete_direct_upload"
       post "upload_from_url", to: "uploads#create_from_url"
       post "revoke", to: "api_keys#revoke"
     end
@@ -43,11 +47,6 @@ Rails.application.routes.draw do
 
   # Rescue endpoint to find uploads by original URL
   get "/rescue", to: "external_uploads#rescue", as: :rescue_upload
-
-  # Slack events webhook
-  namespace :slack do
-    post "events", to: "events#create"
-  end
 
   # External upload redirects (must be last to avoid conflicts)
   get "/:id/*filename", to: "external_uploads#show", constraints: { id: /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/ }, as: :external_upload

@@ -20,7 +20,7 @@ Authorization: Bearer sk_cdn_your_key_here
 
 ## POST /api/v4/upload
 
-Upload a file via multipart form data.
+Upload a file via multipart form data. This is best for smaller files or non-Vercel deployments.
 
 ```bash
 curl -X POST \
@@ -53,6 +53,43 @@ const { url } = await response.json();
   "url": "https://cdn.hackclub.com/01234567-89ab-cdef-0123-456789abcdef/photo.jpg",
   "created_at": "2026-01-29T12:00:00Z"
 }
+```
+
+## POST /api/v4/direct_upload
+
+Prepare a direct-to-storage upload. Use this for large files and Vercel-fronted deployments.
+
+```bash
+curl -X POST \
+  -H "Authorization: Bearer sk_cdn_your_key_here" \
+  -H "Content-Type: application/json" \
+  -d '{"filename":"video.mp4","byte_size":2147483648,"content_type":"video/mp4"}' \
+  https://cdn.hackclub.com/api/v4/direct_upload
+```
+
+**Response:**
+
+```json
+{
+  "upload_id": "01234567-89ab-cdef-0123-456789abcdef",
+  "upload_url": "https://cdn-hackclub-assets.example.com/...",
+  "headers": {
+    "Content-Type": "video/mp4"
+  },
+  "finalize_token": "signed-token"
+}
+```
+
+Upload the file bytes to `upload_url` with `PUT`, then finalize:
+
+## POST /api/v4/complete_upload
+
+```bash
+curl -X POST \
+  -H "Authorization: Bearer sk_cdn_your_key_here" \
+  -H "Content-Type: application/json" \
+  -d '{"finalize_token":"signed-token"}' \
+  https://cdn.hackclub.com/api/v4/complete_upload
 ```
 
 ## POST /api/v4/upload\_from\_url
@@ -153,5 +190,4 @@ See [Storage Quotas](/docs/quotas) for details on getting more space.
 
 ## Help
 
-- [#cdn-dev on Slack](https://hackclub.slack.com/archives/C08RYDPS36V)
 - [GitHub Issues](https://github.com/hackclub/cdn/issues)

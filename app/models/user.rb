@@ -7,7 +7,7 @@ class User < ApplicationRecord
   def to_param = public_id
 
   pg_search_scope :search,
-    against: [ :email, :name, :slack_id ],
+    against: [ :email, :name ],
     using: { tsearch: { prefix: true } }
 
   scope :admins, -> { where(is_admin: true) }
@@ -21,22 +21,9 @@ class User < ApplicationRecord
 
   def self.find_or_create_from_omniauth(auth)
     hca_id = auth.uid
-    slack_id = auth.extra.raw_info.dig("identity", "slack_id")
     raise "Missing HCA user ID from authentication" if hca_id.blank?
 
     user = find_by(hca_id:)
-
-    if slack_id.present?
-      slack_user = find_by(slack_id:)
-      if slack_user && user && slack_user.id != user.id
-        # same person, two records — merge into the slack user
-        user.uploads.update_all(user_id: slack_user.id)
-        user.destroy!
-        user = slack_user
-      elsif slack_user
-        user = slack_user
-      end
-    end
 
     attrs = {
       hca_id:,
@@ -44,7 +31,6 @@ class User < ApplicationRecord
       name: auth.info.name,
       hca_access_token: auth.credentials.token
     }
-    attrs[:slack_id] = slack_id if slack_id.present?
 
     if user
       user.update!(attrs)

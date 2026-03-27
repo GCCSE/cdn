@@ -3,6 +3,75 @@
   let counter = 0;
   let fileInput, form;
   let initialized = false;
+  let uploading = false;
+
+  function csrfToken() {
+    const meta = document.querySelector('meta[name="csrf-token"]');
+    return meta ? meta.content : "";
+  }
+
+  async function parseJson(response) {
+    const text = await response.text();
+    return text ? JSON.parse(text) : {};
+  }
+
+  async function uploadSelectedFile(file) {
+    const directUploadUrl = form?.dataset.directUploadUrl;
+    const completeUploadUrl = form?.dataset.completeUploadUrl;
+
+    if (!directUploadUrl || !completeUploadUrl) {
+      form.requestSubmit();
+      return;
+    }
+
+    const prepareResponse = await fetch(directUploadUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "X-CSRF-Token": csrfToken()
+      },
+      body: JSON.stringify({
+        file: {
+          filename: file.name,
+          byte_size: file.size,
+          content_type: file.type || "application/octet-stream"
+        }
+      })
+    });
+
+    const prepareJson = await parseJson(prepareResponse);
+    if (!prepareResponse.ok) {
+      throw new Error(prepareJson.error || "Could not prepare upload.");
+    }
+
+    const objectResponse = await fetch(prepareJson.upload_url, {
+      method: "PUT",
+      headers: prepareJson.headers || {},
+      body: file
+    });
+
+    if (!objectResponse.ok) {
+      throw new Error("Could not upload file to storage.");
+    }
+
+    const completeResponse = await fetch(completeUploadUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "X-CSRF-Token": csrfToken()
+      },
+      body: JSON.stringify({ finalize_token: prepareJson.finalize_token })
+    });
+
+    const completeJson = await parseJson(completeResponse);
+    if (!completeResponse.ok) {
+      throw new Error(completeJson.error || "Could not finalize upload.");
+    }
+
+    window.location.assign("/uploads");
+  }
 
   function init() {
     const formElement = document.querySelector("[data-dropzone-form]");
@@ -23,10 +92,19 @@
     initialized = true;
 
     // Handle file input change
-    fileInput.addEventListener("change", (e) => {
+    fileInput.addEventListener("change", async (e) => {
       const file = e.target.files[0];
-      if (file) {
-        form.requestSubmit();
+      if (!file || uploading) return;
+
+      uploading = true;
+
+      try {
+        await uploadSelectedFile(file);
+      } catch (error) {
+        window.alert(error.message);
+      } finally {
+        uploading = false;
+        fileInput.value = "";
       }
     });
   }
@@ -64,9 +142,9 @@
     hideDropzone();
 
     const files = e.dataTransfer.files;
-    if (files.length > 0) {
+    if (files.length > 0 && !uploading) {
       fileInput.files = files;
-      form.requestSubmit();
+      fileInput.dispatchEvent(new Event("change", { bubbles: true }));
     }
   });
 

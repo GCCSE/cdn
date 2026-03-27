@@ -26,7 +26,10 @@ class Components::StaticPages::Home < Components::StaticPages::Base
           plain "Welcome back, "
           strong { user&.name || "friend" }
         end
-        h1(style: "font-size: 2rem; font-weight: 300; margin: 0;") { "Hack Club CDN" }
+        div(style: "display: flex; align-items: center; gap: 12px;") do
+          img(src: "/logo-black.png", alt: "CDN logo", class: "app-logo", style: "height: 40px; width: auto;")
+          h1(style: "font-size: 2rem; font-weight: 300; margin: 0;") { "Hack Club CDN" }
+        end
         div(style: "margin-top: 8px;") do
           render(Primer::Beta::Label.new(scheme: :secondary)) { flavor_text }
         end

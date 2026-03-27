@@ -21,12 +21,15 @@ class Components::StaticPages::LoggedOut < Components::StaticPages::Base
   def header_section
     header(style: "display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px; padding-bottom: 24px; margin-bottom: 24px; border-bottom: 1px solid var(--borderColor-default, #d0d7de);") do
       div do
-        h1(style: "font-size: 2rem; font-weight: 300; margin: 0 0 8px;") do
-          plain "Hack Club CDN"
-          sup(style: "font-size: 0.5em; margin-left: 4px;") { "v4" }
+        div(style: "display: flex; align-items: center; gap: 12px; margin: 0 0 8px;") do
+          img(src: "/logo-black.png", alt: "CDN logo", class: "app-logo", style: "height: 44px; width: auto;")
+          h1(style: "font-size: 2rem; font-weight: 300; margin: 0;") do
+            plain "Hack Club CDN"
+            sup(style: "font-size: 0.5em; margin-left: 4px;") { "v4" }
+          end
         end
         p(style: "color: var(--fgColor-muted, #656d76); margin: 0 0 8px; max-width: 600px;") do
-          plain "File hosting for Hack Clubbers."
+          plain "File hosting with direct-to-storage uploads up to 2 GB."
         end
         render(Primer::Beta::Label.new(scheme: :secondary)) { flavor_text }
       end

@@ -14,9 +14,9 @@ class HCAService
 
   def me = @conn.get("/api/v1/me").body
 
-  def check_verification(idv_id: nil, email: nil, slack_id: nil)
-    params = { idv_id:, email:, slack_id: }.compact
-    raise ArgumentError, "Provide one of: idv_id, email, or slack_id" if params.empty?
+  def check_verification(idv_id: nil, email: nil)
+    params = { idv_id:, email: }.compact
+    raise ArgumentError, "Provide one of: idv_id or email" if params.empty?
 
     @conn.get("/api/external/check", params).body
   end

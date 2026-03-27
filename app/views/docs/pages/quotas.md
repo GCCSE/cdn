@@ -12,17 +12,17 @@ CDN provides free storage for the Hack Club community. Your quota depends on whe
 
 | Tier | Per File | Total Storage |
 |------|----------|---------------|
-| **Unverified** | 10 MB    | 50 MB |
-| **Verified** | 100 MB   | 50 GB |
-| **"Unlimited"** | 200 MB   | 300 GB |
+| **Unverified** | 2 GB | 50 GB |
+| **Verified** | 2 GB | 300 GB |
+| **"Unlimited"** | 2 GB | 2 TB |
 
-**New users start unverified.** Once you verify with Hack Club, you automatically get 50GB.
+**New users start unverified.** Once you verify with Hack Club, you automatically get 300 GB.
 
-## Get 50GB Free (Verified Tier)
+## Get 300 GB Free (Verified Tier)
 
 1. Visit [auth.hackclub.com](https://auth.hackclub.com) and submit your ID for verification
 2. Wait for HCA ops to approve your ID (usually takes a day or two)
-3. Once approved, sign in to CDN again to automatically unlock 50GB
+3. Once approved, sign in to CDN again to automatically unlock 300 GB
 
 Your quota upgrades automatically once HCA confirms your verification.
 

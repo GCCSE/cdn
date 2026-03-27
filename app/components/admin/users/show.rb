@@ -35,12 +35,6 @@ class Components::Admin::Users::Show < Components::Base
             plain " · "
             code(style: "font-size: 12px;") { @user.public_id }
           end
-          if @user.slack_id.present?
-            p(style: "color: var(--fgColor-muted); margin: 4px 0 0; font-size: 12px;") do
-              plain "Slack: "
-              code { @user.slack_id }
-            end
-          end
         end
         link_to admin_search_path, class: "btn" do
           render Primer::Beta::Octicon.new(icon: :"arrow-left", mr: 1)

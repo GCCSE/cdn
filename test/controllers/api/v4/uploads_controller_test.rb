@@ -44,14 +44,20 @@ class API::V4::UploadsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should upload from URL with valid token" do
-    url = "https://example.com/test.jpg"
+    upload = @user.uploads.create!(
+      id: SecureRandom.uuid_v7,
+      blob: ActiveStorage::Blob.create_and_upload!(
+        io: StringIO.new("fake image data"),
+        filename: "test.jpg",
+        content_type: "image/jpeg"
+      ),
+      provenance: :api
+    )
 
-    # Stub the URI.open call
-    file_double = StringIO.new("fake image data")
-    URI.stub :open, file_double do
-      assert_difference("Upload.count", 1) do
+    Upload.stub :create_from_url, upload do
+      assert_no_difference("Upload.count") do
         post api_v4_upload_from_url_url,
-          params: { url: url }.to_json,
+          params: { url: "https://example.com/test.jpg" }.to_json,
           headers: {
             "Authorization" => "Bearer #{@token}",
             "Content-Type" => "application/json"
@@ -79,12 +85,9 @@ class API::V4::UploadsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should handle upload errors gracefully" do
-    url = "https://example.com/broken.jpg"
-
-    # Simulate an error
-    URI.stub :open, ->(_) { raise StandardError, "Network error" } do
+    Upload.stub :create_from_url, ->(*) { raise StandardError, "Network error" } do
       post api_v4_upload_from_url_url,
-        params: { url: url }.to_json,
+        params: { url: "https://example.com/broken.jpg" }.to_json,
         headers: {
           "Authorization" => "Bearer #{@token}",
           "Content-Type" => "application/json"
@@ -94,5 +97,62 @@ class API::V4::UploadsControllerTest < ActionDispatch::IntegrationTest
     assert_response :unprocessable_entity
     json = JSON.parse(response.body)
     assert json["error"].include?("Upload failed")
+  end
+
+  test "should prepare direct upload with valid token" do
+    prepared_upload = {
+      upload_id: SecureRandom.uuid_v7,
+      upload_url: "https://uploads.example.com/object",
+      headers: { "Content-Type" => "video/mp4" },
+      finalize_token: "signed-token"
+    }
+    service = Struct.new(:response) do
+      def prepare(**)
+        response
+      end
+    end.new(prepared_upload)
+
+    DirectUploadService.stub :new, service do
+      post "/api/v4/direct_upload",
+        params: { filename: "video.mp4", byte_size: 1234, content_type: "video/mp4" }.to_json,
+        headers: {
+          "Authorization" => "Bearer #{@token}",
+          "Content-Type" => "application/json"
+        }
+    end
+
+    assert_response :created
+    json = JSON.parse(response.body)
+    assert_equal "signed-token", json["finalize_token"]
+  end
+
+  test "should finalize direct upload with valid token" do
+    upload = @user.uploads.create!(
+      id: SecureRandom.uuid_v7,
+      blob: ActiveStorage::Blob.create_and_upload!(
+        io: StringIO.new("fake image data"),
+        filename: "test.jpg",
+        content_type: "image/jpeg"
+      ),
+      provenance: :api
+    )
+    service = Struct.new(:upload) do
+      def finalize(**)
+        upload
+      end
+    end.new(upload)
+
+    DirectUploadService.stub :new, service do
+      post "/api/v4/complete_upload",
+        params: { finalize_token: "signed-token" }.to_json,
+        headers: {
+          "Authorization" => "Bearer #{@token}",
+          "Content-Type" => "application/json"
+        }
+    end
+
+    assert_response :created
+    json = JSON.parse(response.body)
+    assert_equal upload.id, json["id"]
   end
 end

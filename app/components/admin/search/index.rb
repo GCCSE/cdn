@@ -62,7 +62,7 @@ class Components::Admin::Search::Index < Components::Base
 
   def search_placeholder
     case @type
-    when "users" then "Search by ID, email, name, slack_id..."
+    when "users" then "Search by ID, email, name..."
     when "uploads" then "Search by ID, filename, URL, uploader..."
     else "Search by ID, email, filename, URL..."
     end

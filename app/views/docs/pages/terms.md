@@ -12,4 +12,4 @@ Use this service for personal projects, educational work, and open source stuff.
 
 We provide this on an "as is" basis and may remove content or suspend accounts that violate the Code of Conduct.
 
-Questions? [#cdn-dev on Slack](https://hackclub.slack.com/archives/C08RYDPS36V) or [nora@hackclub.com](mailto:nora@hackclub.com)
+Questions? [GitHub Issues](https://github.com/hackclub/cdn/issues) or [nora@hackclub.com](mailto:nora@hackclub.com)

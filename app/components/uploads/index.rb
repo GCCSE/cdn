@@ -31,7 +31,7 @@ class Components::Uploads::Index < Components::Base
         h1(style: "font-size: 2rem; font-weight: 600; margin: 0;") { "Your Uploads" }
         p(style: "color: var(--fgColor-muted, #656d76); margin: 8px 0 0; font-size: 14px;") do
           count = uploads.respond_to?(:total_count) ? uploads.total_count : uploads.size
-          plain pluralize(count, "file")
+          plain "#{pluralize(count, 'file')} · up to 2 GB per upload"
         end
       end
 
@@ -100,7 +100,7 @@ class Components::Uploads::Index < Components::Base
   end
 
   def dropzone_form
-    form_with url: uploads_path, method: :post, multipart: true, data: { dropzone_form: true } do
+    form_with url: uploads_path, method: :post, multipart: true, data: { dropzone_form: true, direct_upload_url: helpers.direct_uploads_path, complete_upload_url: helpers.complete_direct_uploads_path } do
       input(type: "file", name: "file", id: "dropzone-file-input", data: { dropzone_input: true }, style: "display: none;")
     end
   end
